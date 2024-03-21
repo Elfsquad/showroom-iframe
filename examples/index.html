@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Elfsquad</title>
+      <style>img { width:240px; height:auto; }</style>
+  </head>
+  <body>
+      
+      <div id="container" style="height: 70vh"></div>
+
+      <button id="home">🏠 Home</button>
+      <button id="footprint">📐 Footprint</button>
+      <button id="screenshot">📸 Screenshot</button>
+
+      <hr />
+
+      <div id="images"></div>
+
+      <script type="module">
+        import { ElfsquadShowroom } from "https://cdn.skypack.dev/@elfsquad/showroom-iframe@1.0.0";
+
+        const showroom = new ElfsquadShowroom({
+          container: document.getElementById('container'),
+          url: 'https://automotive.elfsquad.io/configure/Elfsquad%20carrosserie',
+        });
+
+        showroom.onScreenshot(({image}) => {
+          const img = document.createElement('img');
+          img.src = image;
+          images.appendChild(img);
+        });
+
+        home.onclick = () => showroom.home();
+        footprint.onclick = () => showroom.toggleFootprint();
+        screenshot.onclick = () => showroom.screenshot();
+      </script>
+  </body>
+</html>
+
