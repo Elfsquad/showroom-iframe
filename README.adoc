@@ -3,7 +3,7 @@
 :toc-title:
 :toclevels: 3
 
-📦 A package that provides a simple way to embed the Elfsquad showroom in your website. 🌐
+A package that provides a simple way to embed the Elfsquad showroom in your website.
 
 toc::[]
 
@@ -27,7 +27,7 @@ npm install --save @elfsquad/showroom-iframe 📦
 
 == 🖥️ Usage 
 This package exposes the `ElfsquadShowroom` class. This class can be
-used for creating & communicating with the iframe. 🗣️
+used for creating & communicating with the iframe.
 
 Example:
 
@@ -77,12 +77,12 @@ elfsquad.onRequestQuote(callback);
 
 == 🤝 Contributing
 
-We welcome contributions! Please feel free to fork the repository, make your changes, and submit a pull request. 🍴
+We welcome contributions! Please feel free to fork the repository, make your changes, and submit a pull request.
 
 == ⚖️ License
 
-Licensed under MIT. See the `LICENSE` file in the repository for full details. 📄
+Licensed under MIT. See the `LICENSE` file in the repository for full details.
 
 == 🎉 Acknowledgements
 
-A big thank you to everyone who contributes to the ongoing development and maintenance of this action. 💖
+A big thank you to everyone who contributes to the ongoing development and maintenance of this action.
