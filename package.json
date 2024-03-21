@@ -1,0 +1,17 @@
+{
+    "version": "0.1.0",
+    "license": "MIT",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "files": [
+        "./dist"
+    ],
+    "name": "@elfsquad/showroom-iframe",
+    "author": "Elfsquad",
+    "devDependencies": {
+        "typescript": "^5.4.3"
+    }
+}

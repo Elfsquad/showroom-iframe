@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elfsquad</title>
+</head>
+<body style="margin: 0; padding: 0;">
+  <div id="container" style="height: 90vh"></div>
+  <img id="screenshot" src="" />
+  <div id="requestQuoteData"></div>
+
+  <button id="home">Home</button>
+  <button id="takeScreenshot">Screenshot</button>
+  <button id="footprint">Footprint</button>
+
+  <script type="module">
+    import { ElfsquadShowroom } from './dist/index.js';
+
+    const elfsquad = new ElfsquadShowroom({
+      container: "#container",
+      url: "https://automotive.elfsquad.io/configure/Elfsquad%20carrosserie?orderentry=true"
+    });
+
+    home.addEventListener('click', () => {
+      console.log('home clicked');
+      elfsquad.home();
+    });
+
+    takeScreenshot.addEventListener('click', () => {
+      console.log('screenshot clicked');
+      elfsquad.screenshot();
+    });
+
+    footprint.addEventListener('click', () => {
+      console.log('footprint clicked');
+      elfsquad.toggleFootprint();
+    });
+
+    elfsquad.onScreenshot((data) => {
+      screenshot.src = data.image;
+    });
+
+    elfsquad.onRequestQuote((data) => {
+      requestQuoteData.innerHTML = JSON.stringify(data);
+    });
+  </script>
+</body>
+</html>
+
