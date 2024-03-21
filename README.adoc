@@ -1,18 +1,18 @@
-= 🦖 Elfsquad showroom iframe
+= 🏰 Elfsquad showroom iframe
 :toc: macro
 :toc-title:
 :toclevels: 3
 
 toc::[]
 
-A package that provides a simple way to embed the Elfsquad showroom in your website.
+📦 A package that provides a simple way to embed the Elfsquad showroom in your website. 🌐
 
 image:assets/example.gif[]
 
-== 💾 Installation 
+== 🛠 Installation 
 
 ```bash
-npm install --save @elfsquad/showroom-iframe
+npm install --save @elfsquad/showroom-iframe 📦
 ```
 
 ```js
@@ -25,9 +25,9 @@ npm install --save @elfsquad/showroom-iframe
 </script>
 ```
 
-== 🛠️ Usage 
+== 🖥️ Usage 
 This package exposes the `ElfsquadShowroom` class. This class can be
-used for creating & communicating with the iframe.
+used for creating & communicating with the iframe. 🗣️
 
 Example:
 
@@ -42,22 +42,22 @@ const elfsquad = new ElfsquadShowroom({
 });
 ```
 
-=== Trigger a screenshot
+=== 📸 Trigger a screenshot
 ```ts
 elfsquad.screenshot();
 ```
 
-=== Reset the camera position
+=== 🔄 Reset the camera position
 ```ts
 elfsquad.home()
 ```
 
-=== Toggle the footprint visibility
+=== 🔳 Toggle the footprint visibility
 ```ts
 elfsquad.toggleFootprint();
 ```
 
-=== Handle screenshot event
+=== 📣 Handle screenshot event
 ```ts
 import { ScreenshotCallback } from "@elfsquad/showroom-iframe";
 const callback: ScreenshotCallback = ({image}) => {
@@ -66,7 +66,7 @@ const callback: ScreenshotCallback = ({image}) => {
 elfsquad.onScreenshot(callback);
 ```
 
-=== Handle quotation request event
+=== 📝 Handle quotation request event
 ```ts
 import { RequestQuoteCallback } from "@elfsquad/showroom-iframe";
 const callback: RequestQuoteCallback = ({configurationId}) => {
@@ -77,13 +77,12 @@ elfsquad.onRequestQuote(callback);
 
 == 🤝 Contributing
 
-We welcome contributions! Please feel free to fork the repository, make your changes, and submit a pull request.
+We welcome contributions! Please feel free to fork the repository, make your changes, and submit a pull request. 🍴
 
 == ⚖️ License
 
-Licensed under MIT. See the `LICENSE` file in the repository for full details.
+Licensed under MIT. See the `LICENSE` file in the repository for full details. 📄
 
-== ✨ Acknowledgements
+== 🎉 Acknowledgements
 
-A big thank you to everyone who contributes to the ongoing development and maintenance of this action.
-
+A big thank you to everyone who contributes to the ongoing development and maintenance of this action. 💖
