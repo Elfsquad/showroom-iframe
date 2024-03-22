@@ -17,4 +17,16 @@ jobs:
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  updateDocs:
+    runs-on: ubuntu-20.04
+    if: success()
+    steps:
+      - name: Call update docs
+        env:
+          REPO: elfsquad/showroom-iframe
+          BRANCH: main
+          WORKFLOW_ID: 90732865
+        run: |
+          curl -fL --retry 3 -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.TOKEN }}" https://api.github.com/repos/${{ env.REPO }}/actions/workflows/${{ env.WORKFLOW_ID }}/dispatches -d '{"ref":"main", "inputs": {}}'
+
 
