@@ -12,14 +12,14 @@ image:assets/example.gif[]
 == 🛠 Installation 
 
 ```bash
-npm install --save @elfsquad/showroom-iframe 📦
+npm install --save @elfsquad/showroom-iframe
 ```
 
 ```js
 <script type="importmap>
 {
   "imports": {
-    "@elfsquad/showroom-iframe": "https://cdn.skypack.dev/@elfsquad/showroom-iframe@1.0.0"
+    "@elfsquad/showroom-iframe": "https://cdn.skypack.dev/@elfsquad/showroom-iframe@1.0.1"
   }
 }
 </script>
@@ -85,4 +85,4 @@ Licensed under MIT. See the `LICENSE` file in the repository for full details.
 
 == 🎉 Acknowledgements
 
-A big thank you to everyone who contributes to the ongoing development and maintenance of this action.
+A big thank you to everyone who contributes to the ongoing development and maintenance of this package.
