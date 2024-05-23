@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "declaration": true, // Generates corresponding '.d.ts' file.
-    "outDir": "./dist"   // Output directory for the build files.
-    // include other necessary compiler options as per your project requirements
+    "module": "ES6",
+    "target": "ES6",
+    "declaration": true,
+    "outDir": "./dist"
   },
   "include": ["src/**/*"], // Adjust if your source files are located in a different directory
   "exclude": ["node_modules", "dist"]
