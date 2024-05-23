@@ -13,6 +13,7 @@
       <button id="home">🏠 Home</button>
       <button id="footprint">📐 Footprint</button>
       <button id="screenshot">📸 Screenshot</button>
+      <button id="navigate">🗺️ Navigate</button>
 
       <hr />
 
@@ -35,6 +36,7 @@
         home.onclick = () => showroom.home();
         footprint.onclick = () => showroom.toggleFootprint();
         screenshot.onclick = () => showroom.screenshot();
+        navigate.onclick = () => showroom.navigateTo('products');
       </script>
   </body>
 </html>

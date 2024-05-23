@@ -148,6 +148,23 @@ export class ElfsquadShowroom {
     this.addCallback(ViewerEvent.RequestQuote, callback);
   }
 
+  /**
+   * Navigates to the specified URL within the showroom iframe.
+   *
+   * @example
+   * ```typescript
+   * const showroom = new ElfsquadShowroom({ container: '#showroom', url: 'https://automotive.elfsquad.io' });
+   * showroom.navigateTo('/products');
+   * showroom.navigateTo('/configure/featureModelName');
+   * showroom.navigateTo('/checkout');
+   * ```
+   *
+   * @param url - The URL to navigate to within the showroom iframe.
+   */
+  public navigateTo(url: string): void {
+    this.sendMessage({ name: 'elfsquad.navigation.navigateTo', args: { url } });
+  }
+
   private addCallback(key: ViewerEvent, callback: (data: any) => void): void {
     if (!this.callbacks[key])
       this.callbacks[key] = [];
