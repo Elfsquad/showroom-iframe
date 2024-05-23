@@ -10,9 +10,11 @@
   <img id="screenshot" src="" />
   <div id="requestQuoteData"></div>
 
-  <button id="home">Home</button>
-  <button id="takeScreenshot">Screenshot</button>
-  <button id="footprint">Footprint</button>
+
+  <button id="home">🏠 Home</button>
+  <button id="footprint">📐 Footprint</button>
+  <button id="takeScreenshot">📸 Screenshot</button>
+  <button id="navigate">🗺️ Navigate</button>
 
   <script type="module">
     import { ElfsquadShowroom } from './dist/index.js';
@@ -20,6 +22,11 @@
     const elfsquad = new ElfsquadShowroom({
       container: "#container",
       url: "https://automotive.elfsquad.io/configure/Elfsquad%20carrosserie?orderentry=true"
+    });
+
+    navigate.addEventListener('click', () => {
+      console.log('navigate clicked');
+      elfsquad.navigateTo('https://automotive.elfsquad.io/configure/Elfsquad%20carrosserie?orderentry=true');
     });
 
     home.addEventListener('click', () => {
