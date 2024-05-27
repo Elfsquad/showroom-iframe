@@ -57,6 +57,11 @@ elfsquad.home()
 elfsquad.toggleFootprint();
 ```
 
+=== 🧭 Navigate to a page within the showroom
+```ts
+elfsquad.navigateTo('relativeUrl');
+```
+
 === 📣 Handle screenshot event
 ```ts
 import { ScreenshotCallback } from "@elfsquad/showroom-iframe";
