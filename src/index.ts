@@ -154,9 +154,9 @@ export class ElfsquadShowroom {
    * @example
    * ```typescript
    * const showroom = new ElfsquadShowroom({ container: '#showroom', url: 'https://automotive.elfsquad.io' });
-   * showroom.navigateTo('/products');
-   * showroom.navigateTo('/configure/featureModelName');
-   * showroom.navigateTo('/checkout');
+   * showroom.navigateTo('products');
+   * showroom.navigateTo('configure/featureModelName');
+   * showroom.navigateTo('checkout');
    * ```
    *
    * @param url - The URL to navigate to within the showroom iframe.
