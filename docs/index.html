@@ -1,43 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Elfsquad</title>
-      <style>img { width:240px; height:auto; }</style>
-  </head>
-  <body>
-      
-      <div id="container" style="height: 70vh"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Elfsquad</title>
+</head>
+<body style="margin: 0; padding: 0;">
+  <div id="container" style="height: 90vh"></div>
+  <img id="screenshot" src="" />
+  <div id="requestQuoteData"></div>
 
-      <button id="home">🏠 Home</button>
-      <button id="footprint">📐 Footprint</button>
-      <button id="screenshot">📸 Screenshot</button>
-      <button id="navigate">🗺️ Navigate</button>
 
-      <hr />
+  <button id="home">🏠 Home</button>
+  <button id="footprint">📐 Footprint</button>
+  <button id="takeScreenshot">📸 Screenshot</button>
+  <button id="navigate">🗺️ Navigate</button>
 
-      <div id="images"></div>
+  <div style="display: flex; gap: 10px; margin-top: 10px;">
+    <input type="text" id="languageInput" placeholder="Language" />
+    <button id="setLanguage">Set Language</button>
+  </div>
 
-      <script type="module">
-        import { ElfsquadShowroom } from "https://cdn.skypack.dev/@elfsquad/showroom-iframe@1.0.2";
+  <script type="module">
+    import { ElfsquadShowroom } from "https://cdn.skypack.dev/@elfsquad/showroom-iframe@1.0.3";
 
-        const showroom = new ElfsquadShowroom({
-          container: document.getElementById('container'),
-          url: 'https://automotive.elfsquad.io/configure/Elfsquad%20carrosserie',
-        });
+    const showroom = new ElfsquadShowroom({
+      container: document.getElementById('container'),
+      url: 'https://automotive.elfsquad.io/configure/Elfsquad%20carrosserie',
+    });
 
-        showroom.onScreenshot(({image}) => {
-          const img = document.createElement('img');
-          img.src = image;
-          images.appendChild(img);
-        });
+    navigate.addEventListener('click', () => {
+      console.log('navigate clicked');
+      elfsquad.navigateTo('products');
+    });
 
-        home.onclick = () => showroom.home();
-        footprint.onclick = () => showroom.toggleFootprint();
-        screenshot.onclick = () => showroom.screenshot();
-        navigate.onclick = () => showroom.navigateTo('products');
-      </script>
-  </body>
+    home.addEventListener('click', () => {
+      console.log('home clicked');
+      elfsquad.home();
+    });
+
+    takeScreenshot.addEventListener('click', () => {
+      console.log('screenshot clicked');
+      elfsquad.screenshot();
+    });
+
+    footprint.addEventListener('click', () => {
+      console.log('footprint clicked');
+      elfsquad.toggleFootprint();
+    });
+
+    setLanguage.addEventListener('click', () => {
+      const language = languageInput.value;
+      console.log('set language clicked', language);
+      elfsquad.setLanguage(language);
+    });
+
+    elfsquad.onScreenshot((data) => {
+      screenshot.src = data.image;
+    });
+
+    elfsquad.onRequestQuote((data) => {
+      requestQuoteData.innerHTML = JSON.stringify(data);
+    });
+  </script>
+</body>
 </html>
 
