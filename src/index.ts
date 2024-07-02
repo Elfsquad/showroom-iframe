@@ -102,6 +102,26 @@ export class ElfsquadShowroom {
   }
 
   /**
+   * Change the language of the showroom & configuration to the
+   * specified language ISO code.
+   *
+   * Please note that the language must be enabled and available in the
+   * Elfsquad environment.
+   *
+   * @example
+   * ```typescript
+   * const showroom = new ElfsquadShowroom({ container: '#showroom', url: 'https://automotive.elfsquad.io' });
+   * showroom.changeLanguage('en');
+   * ```
+   *
+   * @param languageIso - The ISO code of the language to change to.
+   */
+  public changeLanguage(languageIso: string): void {
+    this.sendMessage({ name: 'elfsquad.localization.changeLanguage', args: { languageIso } });
+  }
+
+
+  /**
    * Initiates a screenshot of the current view. The screenshot data is returned via the `onScreenshot` callback.
    *
    * @example

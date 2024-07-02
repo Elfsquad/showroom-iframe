@@ -16,6 +16,11 @@
   <button id="takeScreenshot">📸 Screenshot</button>
   <button id="navigate">🗺️ Navigate</button>
 
+  <div style="display: flex; gap: 10px; margin-top: 10px;">
+    <input type="text" id="languageInput" placeholder="Language" />
+    <button id="setLanguage">Set Language</button>
+  </div>
+
   <script type="module">
     import { ElfsquadShowroom } from './dist/index.js';
 
@@ -42,6 +47,12 @@
     footprint.addEventListener('click', () => {
       console.log('footprint clicked');
       elfsquad.toggleFootprint();
+    });
+
+    setLanguage.addEventListener('click', () => {
+      const language = languageInput.value;
+      console.log('set language clicked', language);
+      elfsquad.setLanguage(language);
     });
 
     elfsquad.onScreenshot((data) => {
