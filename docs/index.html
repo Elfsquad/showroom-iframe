@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Elfsquad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elfsquad</title>
 </head>
 <body style="margin: 0; padding: 0;">
   <div id="container" style="height: 90vh"></div>
@@ -13,6 +14,8 @@
   <button id="home">🏠 Home</button>
   <button id="footprint">📐 Footprint</button>
   <button id="takeScreenshot">📸 Screenshot</button>
+  <button id="enableConfigurationUpdates">🔄 Enable Configuration Updates</button>
+  <button id="disableConfigurationUpdates">🔄 Disable Configuration Updates</button>
   <button id="navigate">🗺️ Navigate</button>
 
   <div style="display: flex; gap: 10px; margin-top: 10px;">
@@ -21,9 +24,9 @@
   </div>
 
   <script type="module">
-    import { ElfsquadShowroom } from "https://cdn.skypack.dev/@elfsquad/showroom-iframe@1.0.3";
+    import { ElfsquadShowroom } from './dist/index.js';
 
-    const showroom = new ElfsquadShowroom({
+    const elfsquad = new ElfsquadShowroom({
       container: document.getElementById('container'),
       url: 'https://automotive.elfsquad.io/configure/Elfsquad%20carrosserie',
     });
@@ -48,6 +51,16 @@
       elfsquad.toggleFootprint();
     });
 
+    enableConfigurationUpdates.addEventListener('click', () => {
+      console.log('enable configuration updates clicked');
+      elfsquad.enableConfigurationUpdates();
+    });
+
+    disableConfigurationUpdates.addEventListener('click', () => {
+      console.log('disable configuration updates clicked');
+      elfsquad.disableConfigurationUpdates();
+    });
+
     setLanguage.addEventListener('click', () => {
       const language = languageInput.value;
       console.log('set language clicked', language);
@@ -60,6 +73,10 @@
 
     elfsquad.onRequestQuote((data) => {
       requestQuoteData.innerHTML = JSON.stringify(data);
+    });
+
+    elfsquad.onConfigurationUpdate((data) => {
+      console.log('Configuration updated', data);
     });
   </script>
 </body>
