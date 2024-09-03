@@ -24,10 +24,16 @@ export type ScreenshotCallback = (data: { image: string }) => void;
 export type RequestQuoteCallback = (data: { configurationId: string }) => void;
 
 /**
+ * Type definition for the configuration update callback function.
+ */
+export type ConfigurationUpdateCallback = (data: any) => void;
+
+/**
  * Enum representing different viewer events within the Elfsquad Showroom.
  */
 export enum ViewerEvent {
   ScreenshotTaken = 'elfsquad.visualization.screenshotTaken',
+  ConfigurationUpdated = 'elfsquad.configurationUpdated',
   RequestQuote = 'custom:REQUEST_QUOTE',
 }
 
@@ -169,6 +175,60 @@ export class ElfsquadShowroom {
   }
 
   /**
+   * Enables receiving real-time configuration updates, whenever the
+   * configuration is changed in the showroom.
+   *
+   * This will trigger the `onConfigurationUpdate` callback with the 
+   * updated configuration.
+   *
+   * @example
+   * ```typescript
+   * const showroom = new ElfsquadShowroom({ container: '#showroom', url: 'https://automotive.elfsquad.io' });
+   * showroom.enableConfigurationUpdates();
+   * showroom.onConfigurationUpdate(data => {
+   *    console.log('updated configuration:', data);
+   * });
+   * ```
+  */
+  public enableConfigurationUpdates(): void {
+    this.sendMessage({ name: 'elfsquad.enableConfigurationUpdates' });
+  }
+
+  /**
+   * Disables receiving real-time configuration updates.
+   *
+   * This will stop triggering the `onConfigurationUpdate` callback.
+   *
+   * @example
+   * ```typescript
+   * const showroom = new ElfsquadShowroom({ container: '#showroom', url: 'https://automotive.elfsquad.io' });
+   * showroom.disableConfigurationUpdates();
+   * ```
+  */
+  public disableConfigurationUpdates(): void {
+    this.sendMessage({ name: 'elfsquad.disableConfigurationUpdates' });
+  }
+
+  /**
+   * Registers a callback function to be invoked when the configuration 
+   * is updated.
+   *
+   * @example
+   * ```typescript
+   * const showroom = new ElfsquadShowroom({ container: '#showroom', url: 'https://automotive.elfsquad.io' });
+   * showroom.enableConfigurationUpdates();
+   * showroom.onConfigurationUpdate(data => {
+   *    console.log('updated configuration:', data);
+   * });
+   * ```
+   *
+   * @param callback - The callback function to be called upon configuration update.
+  */
+  public onConfigurationUpdate(callback: ConfigurationUpdateCallback): void {
+    this.addCallback(ViewerEvent.ConfigurationUpdated, callback);
+  }
+
+  /**
    * Navigates to the specified URL within the showroom iframe.
    *
    * @example
@@ -201,6 +261,10 @@ export class ElfsquadShowroom {
   private registerEventListeners(): void {
     this.registerEventListener('elfsquad.visualization.screenshotTaken', (event: MessageEvent) => {
       this.executeCallbacks(ViewerEvent.ScreenshotTaken, event.data.args);
+    });
+
+    this.registerEventListener('elfsquad.configurationUpdated', (event: MessageEvent) => {
+      this.executeCallbacks(ViewerEvent.ConfigurationUpdated, event.data.args);
     });
 
     window.addEventListener('message', (event: MessageEvent) => {
