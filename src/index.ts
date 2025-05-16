@@ -161,7 +161,7 @@ export class ElfsquadShowroom {
    * Registers a callback function to be invoked when a quote is requested.
    * 
    * Note: This function executes only when the showroom loads with the 
-   * ?orderentry=true parameter, overriding the default "add to quotation" action.
+   * ?orderentry=true parameter, overriding the default 'add to quotation' action.
    *
    * @example
    * ```typescript
