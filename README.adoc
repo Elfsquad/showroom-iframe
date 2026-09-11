@@ -3,29 +3,31 @@
 :toc-title:
 :toclevels: 3
 
-A package that provides a simple way to embed the Elfsquad showroom in your website.
+A package that provides a simple way to embed the Elfsquad showroom in your website and to control it from the embedding page.
+
+The package works with both Showroom V1 and Showroom V2. The messages it exchanges with the showroom are identical in both versions, so a website that embeds a V1 showroom keeps working after the showroom is migrated to V2 without upgrading this package or changing code. The one thing to review is which pages you navigate to; see <<migrating-from-v1>>.
 
 toc::[]
 
-image:assets/example.gif[]
-
-== 🛠 Installation 
+== 🛠 Installation
 
 ```bash
 npm install --save @elfsquad/showroom-iframe
 ```
 
-```js
-<script type="importmap>
+Or load it straight from a CDN with an import map:
+
+```html
+<script type="importmap">
 {
   "imports": {
-    "@elfsquad/showroom-iframe": "https://cdn.skypack.dev/@elfsquad/showroom-iframe@1.0.1"
+    "@elfsquad/showroom-iframe": "https://cdn.skypack.dev/@elfsquad/showroom-iframe@1.0.4"
   }
 }
 </script>
 ```
 
-== 🖥️ Usage 
+== 🖥️ Usage
 This package exposes the `ElfsquadShowroom` class. This class can be
 used for creating & communicating with the iframe.
 
@@ -42,10 +44,14 @@ const elfsquad = new ElfsquadShowroom({
 });
 ```
 
+The `url` is any page of your showroom: the showroom root, or a deep link such as the `configure/<featureModelName>` page of one product.
+
 === 📸 Trigger a screenshot
 ```ts
 elfsquad.screenshot();
 ```
+
+The image is delivered through the `onScreenshot` callback, see <<screenshot-event>>.
 
 === 🔄 Reset the camera position
 ```ts
@@ -57,11 +63,60 @@ elfsquad.home()
 elfsquad.toggleFootprint();
 ```
 
-=== 🧭 Navigate to a page within the showroom
+=== 🌐 Change the language
 ```ts
-elfsquad.navigateTo('relativeUrl');
+elfsquad.changeLanguage('en');
 ```
 
+The language must be enabled in the Elfsquad environment the showroom belongs to. Both the showroom texts and the configuration switch language.
+
+=== 🧭 Navigate to a page within the showroom
+```ts
+elfsquad.navigateTo('products');
+elfsquad.navigateTo('configure/Elfsquad%20carrosserie');
+elfsquad.navigateTo('checkout');
+```
+
+The argument is a path relative to the showroom root, with or without a leading slash. The showroom passes it straight to its own router, so exactly these pages can be reached:
+
+[cols="1,2"]
+|===
+| Path | Page
+
+| `welcome`
+| The welcome page.
+
+| `products`
+| The product catalog.
+
+| `configure/<featureModelName>`
+| Start configuring the given product. Use the feature model's name, URL-encoded (`Elfsquad%20carrosserie`). The feature model's ID is accepted as well.
+
+| `continue/<configurationId>`
+| Reopen an existing configuration by its ID.
+
+| `overview`
+| The overview of the configurations the visitor has made.
+
+| `checkout`
+| The checkout page, where the visitor requests a quotation.
+|===
+
+A path that is not in this list shows the showroom's own "page not found" page inside the iframe. Navigation never leaves the showroom: a path pointing at another website is not followed.
+
+=== 🔔 Receive configuration updates
+```ts
+import { ConfigurationUpdateCallback } from "@elfsquad/showroom-iframe";
+const callback: ConfigurationUpdateCallback = (configuration) => {
+    console.log('configuration: ', configuration);
+}
+elfsquad.onConfigurationUpdate(callback);
+elfsquad.enableConfigurationUpdates();
+```
+
+Updates are off by default. After `enableConfigurationUpdates()` the callback receives the full configuration every time the visitor changes it; `disableConfigurationUpdates()` stops them again.
+
+[[screenshot-event]]
 === 📣 Handle screenshot event
 ```ts
 import { ScreenshotCallback } from "@elfsquad/showroom-iframe";
@@ -79,6 +134,33 @@ const callback: RequestQuoteCallback = ({configurationId}) => {
 }
 elfsquad.onRequestQuote(callback);
 ```
+
+The callback only fires when the showroom was loaded with the `?orderentry=true` query parameter, which replaces the showroom's own "add to quotation" action with this event.
+
+[[migrating-from-v1]]
+== 🚚 Migrating from Showroom V1
+
+Nothing in this package changes between Showroom V1 and V2: the same published version serves both, and every method above behaves the same. Showroom V2 does not translate old page paths, though. `navigateTo` hands the path to the V2 router as-is, and a path V2 does not know lands on its "page not found" page.
+
+These V1 paths keep working unchanged: `welcome`, `products`, `configure/<featureModelName>`, `overview` and `checkout`.
+
+These V1 paths no longer resolve in Showroom V2:
+
+[cols="1,2"]
+|===
+| V1 path | In Showroom V2
+
+| `customerportal`, `customerportal/profile`, `customerportal/security`
+| Showroom V2 has no customer portal. There is no page to navigate to; remove the call. Account actions are in the account menu in the showroom's header.
+
+| `customerportal/orderhistory`, `customerportal/orderhistory/quotation/<id>`
+| Showroom V2 has no order history page. Remove the call.
+
+| `logout`
+| Not a page in Showroom V2. Visitors sign out from the account menu in the showroom's header.
+|===
+
+New in V2 is `continue/<configurationId>`, which reopens an existing configuration by its ID.
 
 == 🤝 Contributing
 

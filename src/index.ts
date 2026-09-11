@@ -232,17 +232,26 @@ export class ElfsquadShowroom {
   }
 
   /**
-   * Navigates to the specified URL within the showroom iframe.
+   * Navigates to a page within the showroom iframe. The url is a path relative to the showroom root,
+   * with or without a leading slash. The showroom passes it straight to its own router, so these
+   * pages can be reached: welcome, products, configure/:featureModelName (name URL-encoded, the
+   * feature model ID is accepted too), continue/:configurationId, overview and checkout. Any other
+   * path shows the showroom's own "page not found" page inside the iframe.
+   *
+   * Showroom V2 has no customer portal, so the Showroom V1 paths customerportal/... (profile, order
+   * history, security) and logout no longer resolve there; remove those calls. Every other V1 path
+   * keeps working unchanged.
    *
    * @example
    * ```typescript
    * const showroom = new ElfsquadShowroom({ container: '#showroom', url: 'https://automotive.elfsquad.io' });
    * showroom.navigateTo('products');
-   * showroom.navigateTo('configure/featureModelName');
+   * showroom.navigateTo('configure/Elfsquad%20carrosserie');
+   * showroom.navigateTo('continue/2b7c6f1e-5d1a-4c1e-9f3a-8e2d4b6a1c0f');
    * showroom.navigateTo('checkout');
    * ```
    *
-   * @param url - The URL to navigate to within the showroom iframe.
+   * @param url - The path of the page to navigate to, relative to the showroom root.
    */
   public navigateTo(url: string): void {
     this.sendMessage({ name: 'elfsquad.navigation.navigateTo', args: { url } });
