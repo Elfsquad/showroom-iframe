@@ -77,7 +77,7 @@ elfsquad.navigateTo('configure/Elfsquad%20carrosserie');
 elfsquad.navigateTo('checkout');
 ```
 
-The argument is a path relative to the showroom root, with or without a leading slash. The showroom passes it straight to its own router, so exactly these pages can be reached:
+The argument is a path relative to the showroom root, with or without a leading slash. The showroom passes it straight to its own router, so these pages can be reached:
 
 [cols="1,2"]
 |===
@@ -140,11 +140,7 @@ The callback only fires when the showroom was loaded with the `?orderentry=true`
 [[migrating-from-v1]]
 == 🚚 Migrating from Showroom V1
 
-Nothing in this package changes between Showroom V1 and V2: the same published version serves both, and every method above behaves the same. Showroom V2 does not translate old page paths, though. `navigateTo` hands the path to the V2 router as-is, and a path V2 does not know lands on its "page not found" page.
-
-These V1 paths keep working unchanged: `welcome`, `products`, `configure/<featureModelName>`, `overview` and `checkout`.
-
-These V1 paths no longer resolve in Showroom V2:
+The same package version serves Showroom V1 and V2, and every method above behaves the same. Showroom V2 does not translate old page paths, so these V1 paths land on its "page not found" page:
 
 [cols="1,2"]
 |===
@@ -159,8 +155,6 @@ These V1 paths no longer resolve in Showroom V2:
 | `logout`
 | Not a page in Showroom V2. Visitors sign out from the account menu in the showroom's header.
 |===
-
-New in V2 is `continue/<configurationId>`, which reopens an existing configuration by its ID.
 
 == 🤝 Contributing
 

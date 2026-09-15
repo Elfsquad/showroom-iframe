@@ -158,10 +158,9 @@ export class ElfsquadShowroom {
   }
 
   /**
-   * Registers a callback function to be invoked when a quote is requested.
-   * 
-   * Note: This function executes only when the showroom loads with the 
-   * ?orderentry=true parameter, overriding the default 'add to quotation' action.
+   * Registers a callback function to be invoked when a quote is requested. The callback is only
+   * executed when the showroom loads with the ?orderentry=true parameter, which overrides the
+   * default 'add to quotation' action.
    *
    * @example
    * ```typescript
@@ -233,14 +232,8 @@ export class ElfsquadShowroom {
 
   /**
    * Navigates to a page within the showroom iframe. The url is a path relative to the showroom root,
-   * with or without a leading slash. The showroom passes it straight to its own router, so these
-   * pages can be reached: welcome, products, configure/:featureModelName (name URL-encoded, the
-   * feature model ID is accepted too), continue/:configurationId, overview and checkout. Any other
-   * path shows the showroom's own "page not found" page inside the iframe.
-   *
-   * Showroom V2 has no customer portal, so the Showroom V1 paths customerportal/... (profile, order
-   * history, security) and logout no longer resolve there; remove those calls. Every other V1 path
-   * keeps working unchanged.
+   * with or without a leading slash, such as products, configure/:featureModelName or checkout. The
+   * showroom passes it to its own router; a path it does not know shows its "page not found" page.
    *
    * @example
    * ```typescript
