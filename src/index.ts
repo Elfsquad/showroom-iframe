@@ -158,10 +158,9 @@ export class ElfsquadShowroom {
   }
 
   /**
-   * Registers a callback function to be invoked when a quote is requested.
-   * 
-   * Note: This function executes only when the showroom loads with the 
-   * ?orderentry=true parameter, overriding the default 'add to quotation' action.
+   * Registers a callback function to be invoked when a quote is requested. The callback is only
+   * executed when the showroom loads with the ?orderentry=true parameter, which overrides the
+   * default 'add to quotation' action.
    *
    * @example
    * ```typescript
@@ -232,17 +231,20 @@ export class ElfsquadShowroom {
   }
 
   /**
-   * Navigates to the specified URL within the showroom iframe.
+   * Navigates to a page within the showroom iframe. The url is a path relative to the showroom root,
+   * with or without a leading slash, such as products, configure/:featureModelName or checkout. The
+   * showroom passes it to its own router; a path it does not know shows its "page not found" page.
    *
    * @example
    * ```typescript
    * const showroom = new ElfsquadShowroom({ container: '#showroom', url: 'https://automotive.elfsquad.io' });
    * showroom.navigateTo('products');
-   * showroom.navigateTo('configure/featureModelName');
+   * showroom.navigateTo('configure/Elfsquad%20carrosserie');
+   * showroom.navigateTo('continue/2b7c6f1e-5d1a-4c1e-9f3a-8e2d4b6a1c0f');
    * showroom.navigateTo('checkout');
    * ```
    *
-   * @param url - The URL to navigate to within the showroom iframe.
+   * @param url - The path of the page to navigate to, relative to the showroom root.
    */
   public navigateTo(url: string): void {
     this.sendMessage({ name: 'elfsquad.navigation.navigateTo', args: { url } });
