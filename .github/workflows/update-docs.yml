@@ -18,16 +18,16 @@ jobs:
           cd $GITHUB_WORKSPACE/
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          git clone https://x-access-token:${{ secrets.TOKEN }}@github.com/elfsquad/docs.git
+          git clone --depth 1 https://x-access-token:${{ secrets.TOKEN }}@github.com/elfsquad/cpq.git
       - name: Update docs
         run: |
           npm i -g @elfsquad/tsdoc-parser
           tsdoc-parser $GITHUB_WORKSPACE/showroom-iframe/src/index.ts showroomIframe.json ElfsquadShowroom
 
-          file="$GITHUB_WORKSPACE/docs/docs/configurator/libraries/methods/showroomIframe.ts"
+          file="$GITHUB_WORKSPACE/cpq/docs/site/docs/integrations/developer/configurator/libraries/methods/showroomIframe.ts"
           echo "export default $(cat showroomIframe.json)" > temp && mv temp $file
 
-          cd $GITHUB_WORKSPACE/docs
+          cd $GITHUB_WORKSPACE/cpq
           git checkout -b update-showroom-iframe-docs
           git add .
           git commit -m "Update documentation for @elfsquad/showroom-iframe"
